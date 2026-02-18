@@ -1,9 +1,10 @@
-
 import 'package:dedikodu/presentation/controllers/stream_controller.dart';
 import 'package:dedikodu/presentation/pages/events_page.dart';
 import 'package:dedikodu/presentation/pages/profile_page.dart';
 import 'package:dedikodu/presentation/pages/stream_page.dart';
 import 'package:dedikodu/presentation/pages/venues_page.dart';
+import 'package:dedikodu/presentation/theme/app_colors.dart';
+import 'package:dedikodu/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,8 +22,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Dedikodu',
         theme: ThemeData(
-          fontFamily: 'Plus Jakarta Sans',
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF19E65E)),
+          textTheme: AppTextStyles.textTheme,
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
@@ -57,15 +58,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildNavItem(IconData icon, String label, int index) {
     final isSelected = _selectedIndex == index;
-    final color = isSelected ? const Color(0xFF19E65E) : const Color(0xFF63886F);
+    final color = isSelected ? AppColors.primary : AppColors.textGrey;
 
     return GestureDetector(
       onTap: () => _onItemTapped(index),
       behavior: HitTestBehavior.opaque,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF19E65E).withOpacity(0.1) : Colors.transparent,
+          color: isSelected ? AppColors.primaryWithOpacity(0.1) : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
@@ -75,11 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 4),
             Text(
               label,
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-                color: color,
-              ),
+              style: AppTextStyles.caption.copyWith(color: color),
             ),
           ],
         ),
@@ -96,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.95),
+            color: AppColors.cardLight.withOpacity(0.95),
             borderRadius: BorderRadius.circular(30),
             boxShadow: [
               BoxShadow(

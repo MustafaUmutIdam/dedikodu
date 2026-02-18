@@ -1,4 +1,6 @@
 import 'package:dedikodu/presentation/controllers/profile_controller.dart';
+import 'package:dedikodu/presentation/theme/app_colors.dart';
+import 'package:dedikodu/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,19 +9,16 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color primaryColor = const Color(0xFF19E65E);
-    final Color backgroundColorLight = const Color(0xFFF6F8F6);
-
     return Scaffold(
-      backgroundColor: backgroundColorLight,
+      backgroundColor: AppColors.backgroundLight,
       appBar: AppBar(
-        backgroundColor: Colors.white.withOpacity(0.8),
+        leading: const Icon(Icons.person, color: AppColors.primary, size: 32),
+        backgroundColor: AppColors.cardLight.withOpacity(0.8),
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
-        title: const Text('Profilim', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        title: Text('Profilim', style: AppTextStyles.title.copyWith(color: AppColors.textDark)),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings, color: Colors.black),
+            icon: const Icon(Icons.settings, color: AppColors.textDark),
             onPressed: () {},
           ),
         ],
@@ -63,30 +62,30 @@ class ProfilePage extends StatelessWidget {
                   right: 0,
                   child: CircleAvatar(
                     radius: 16,
-                    backgroundColor: Color(0xFF19E65E),
-                    child: Icon(Icons.verified, color: Colors.white, size: 20),
+                    backgroundColor: AppColors.primary,
+                    child: Icon(Icons.verified, color: AppColors.textLight, size: 20),
                   ),
                 )
             ],
           ),
           const SizedBox(height: 16),
-          Text(user.name, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          Text(user.name, style: AppTextStyles.headline),
           const SizedBox(height: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(Icons.location_on, size: 16, color: Colors.grey),
               const SizedBox(width: 4),
-              Text(user.location, style: const TextStyle(color: Colors.grey)),
+              Text(user.location, style: AppTextStyles.caption.copyWith(color: Colors.grey)),
             ],
           ),
           const SizedBox(height: 24),
           ElevatedButton.icon(
             onPressed: () {},
-            icon: const Icon(Icons.edit, color: Color(0xFF112116)),
-            label: const Text('Profili Düzenle', style: TextStyle(color: Color(0xFF112116))),
+            icon: const Icon(Icons.edit, color: AppColors.textDark),
+            label: Text('Profili Düzenle', style: AppTextStyles.button.copyWith(color: AppColors.textDark)),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF19E65E),
+              backgroundColor: AppColors.primary,
               minimumSize: const Size(double.infinity, 50),
               shape: const StadiumBorder(),
             ),
@@ -103,7 +102,7 @@ class ProfilePage extends StatelessWidget {
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-            colors: [Color(0xFF112116), Color(0xFF1A3A24)],
+            colors: [AppColors.premiumGradientStart, AppColors.premiumGradientEnd],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -115,8 +114,8 @@ class ProfilePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Mahalle Premium', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-                Icon(Icons.workspace_premium, color: Colors.yellow[700]),
+                Text('Mahalle Premium', style: AppTextStyles.title.copyWith(color: AppColors.textLight)),
+                Icon(Icons.workspace_premium, color: AppColors.gold),
               ],
             ),
             const SizedBox(height: 16),
@@ -127,13 +126,13 @@ class ProfilePage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
+                backgroundColor: AppColors.textLight,
                 minimumSize: const Size(double.infinity, 50),
                 shape: const StadiumBorder(),
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text('Hemen Katıl', style: TextStyle(color: Color(0xFF112116), fontWeight: FontWeight.bold)), Icon(Icons.arrow_forward, color: Color(0xFF112116))],
+                children: [Text('Hemen Katıl', style: AppTextStyles.button.copyWith(color: AppColors.textDark)), const Icon(Icons.arrow_forward, color: AppColors.textDark)],
               ),
             ),
           ],
@@ -147,9 +146,9 @@ class ProfilePage extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
         children: [
-          Icon(icon, color: const Color(0xFF19E65E)),
+          Icon(icon, color: AppColors.primary),
           const SizedBox(width: 8),
-          Text(text, style: const TextStyle(color: Colors.white)),
+          Text(text, style: AppTextStyles.body.copyWith(color: AppColors.textLight)),
         ],
       ),
     );
@@ -161,7 +160,7 @@ class ProfilePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Hesap Ayarları', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
+          Text('Hesap Ayarları', style: AppTextStyles.caption.copyWith(color: Colors.grey, fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
           _buildSettingsItem(Icons.help_center, 'Yardım ve Destek'),
         ],
@@ -173,8 +172,8 @@ class ProfilePage extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ListTile(
-        leading: Icon(icon, color: const Color(0xFF19E65E)),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        leading: Icon(icon, color: AppColors.primary),
+        title: Text(title, style: AppTextStyles.bodyBold),
         trailing: const Icon(Icons.chevron_right),
         onTap: () {},
       ),
@@ -186,10 +185,10 @@ class ProfilePage extends StatelessWidget {
       padding: const EdgeInsets.all(24.0),
       child: OutlinedButton.icon(
         onPressed: () {},
-        icon: const Icon(Icons.logout, color: Colors.red),
-        label: const Text('Çıkış Yap', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+        icon: const Icon(Icons.logout, color: AppColors.red),
+        label: Text('Çıkış Yap', style: AppTextStyles.button.copyWith(color: AppColors.red)),
         style: OutlinedButton.styleFrom(
-          side: const BorderSide(color: Colors.red),
+          side: const BorderSide(color: AppColors.red),
           minimumSize: const Size(double.infinity, 50),
           shape: const StadiumBorder(),
         ),

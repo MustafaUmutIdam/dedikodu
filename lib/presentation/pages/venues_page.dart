@@ -1,5 +1,6 @@
 import 'package:dedikodu/data/models/backend_models/venue_model.dart';
 import 'package:dedikodu/presentation/controllers/venues_controller.dart';
+import 'package:dedikodu/presentation/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,31 +16,28 @@ class _VenuesPageState extends State<VenuesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Color primaryColor = const Color(0xFF19E65E);
-    final Color backgroundColorLight = const Color(0xFFF6F8F6);
-
     return Scaffold(
-      backgroundColor: backgroundColorLight,
+      backgroundColor: AppColors.backgroundLight,
       appBar: AppBar(
-        backgroundColor: Colors.white.withOpacity(0.8),
+        backgroundColor: AppColors.cardLight.withOpacity(0.8),
         elevation: 0,
-        leading: Icon(Icons.storefront, color: primaryColor, size: 32),
+        leading: const Icon(Icons.storefront, color: AppColors.primary, size: 32),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               'Mahalle Esnafı',
               style: TextStyle(
-                  color: Color(0xFF112116),
+                  color: AppColors.textDark,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
             Row(
               children: [
-                Icon(Icons.location_on, color: Colors.grey, size: 14),
+                Icon(Icons.location_on, color: AppColors.textGrey, size: 14),
                 const SizedBox(width: 4),
                 const Text('Kadıköy, İstanbul',
-                    style: TextStyle(color: Colors.grey, fontSize: 12)),
+                    style: TextStyle(color: AppColors.textGrey, fontSize: 12)),
               ],
             ),
           ],
@@ -49,11 +47,11 @@ class _VenuesPageState extends State<VenuesPage> {
             padding: const EdgeInsets.only(right: 16.0),
             child: ElevatedButton.icon(
               onPressed: () {},
-              icon: const Icon(Icons.add_circle, color: Color(0xFF112116)),
+              icon: const Icon(Icons.add_circle, color: AppColors.textDark),
               label: const Text('Dükkanımı Ekle',
-                  style: TextStyle(color: Color(0xFF112116))),
+                  style: TextStyle(color: AppColors.textDark)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: primaryColor,
+                backgroundColor: AppColors.primary,
                 shape: const StadiumBorder(),
               ),
             ),
@@ -123,7 +121,7 @@ class _VenuesPageState extends State<VenuesPage> {
             borderSide: BorderSide.none,
           ),
           filled: true,
-          fillColor: const Color(0xFF19E65E).withOpacity(0.05),
+          fillColor: AppColors.primaryWithOpacity(0.05),
         ),
       ),
     );
@@ -140,7 +138,7 @@ class _VenuesPageState extends State<VenuesPage> {
           Container(
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: const Color(0xFF19E65E).withOpacity(0.1),
+              color: AppColors.primaryWithOpacity(0.1),
               borderRadius: BorderRadius.circular(30),
             ),
             child: Row(
@@ -162,14 +160,14 @@ class _VenuesPageState extends State<VenuesPage> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.white : Colors.transparent,
+          color: isSelected ? AppColors.cardLight : Colors.transparent,
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
           children: [
-            Icon(icon, size: 16, color: isSelected ? Colors.black : Colors.grey),
+            Icon(icon, size: 16, color: isSelected ? AppColors.textDark : AppColors.textGrey),
             const SizedBox(width: 4),
-            Text(label, style: TextStyle(fontSize: 12, color: isSelected ? Colors.black : Colors.grey)),
+            Text(label, style: TextStyle(fontSize: 12, color: isSelected ? AppColors.textDark : AppColors.textGrey)),
           ],
         ),
       ),
@@ -180,7 +178,7 @@ class _VenuesPageState extends State<VenuesPage> {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 0,
-      color: Colors.white,
+      color: AppColors.cardLight,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -196,7 +194,7 @@ class _VenuesPageState extends State<VenuesPage> {
       margin: const EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 0,
-      color: Colors.white,
+      color: AppColors.cardLight,
       child: Column(
         children: [
           _buildVenueImage(venue, 180),
@@ -225,12 +223,12 @@ class _VenuesPageState extends State<VenuesPage> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.9),
+              color: AppColors.cardLight.withOpacity(0.9),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
               children: [
-                const Icon(Icons.star, color: Color(0xFF19E65E), size: 14),
+                const Icon(Icons.star, color: AppColors.primary, size: 14),
                 const SizedBox(width: 2),
                 Text(venue.rating.toString(),
                     style: const TextStyle(
@@ -262,20 +260,20 @@ class _VenuesPageState extends State<VenuesPage> {
               Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF19E65E).withOpacity(0.1),
+                    color: AppColors.primaryWithOpacity(0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(venue.category.toUpperCase(),
                       style: const TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF112116)))),
+                          color: AppColors.textDark))),
             ],
           ),
           const SizedBox(height: 4),
           Text(
             venue.description,
-            style: const TextStyle(color: Colors.grey, fontSize: 12),
+            style: const TextStyle(color: AppColors.textGrey, fontSize: 12),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -286,7 +284,7 @@ class _VenuesPageState extends State<VenuesPage> {
               TextButton(
                 onPressed: () {},
                 child: const Text('Detaylar',
-                    style: TextStyle(color: Color(0xFF19E65E))),
+                    style: TextStyle(color: AppColors.primary)),
               ),
             ],
           )
@@ -306,18 +304,18 @@ class _VenuesPageState extends State<VenuesPage> {
            Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF19E65E).withOpacity(0.1),
+                    color: AppColors.primaryWithOpacity(0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(venue.category.toUpperCase(),
                       style: const TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF112116)))),
+                          color: AppColors.textDark))),
           const SizedBox(height: 8),
           Text(
             venue.description,
-            style: const TextStyle(color: Colors.grey, fontSize: 12),
+            style: const TextStyle(color: AppColors.textGrey, fontSize: 12),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -327,7 +325,7 @@ class _VenuesPageState extends State<VenuesPage> {
             child: TextButton(
               onPressed: () {},
               child: const Text('Detaylar',
-                  style: TextStyle(color: Color(0xFF19E65E))),
+                  style: TextStyle(color: AppColors.primary)),
             ),
           )
         ],
