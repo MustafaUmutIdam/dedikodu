@@ -1,0 +1,32 @@
+# Flutter
+#
+# This file is used to ignore files and directories from git version control.
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Dart/Pub related
+.dart_tool/
+.packages
+.pub-cache/
+build/
+
+# Android related
+android/app/build/
+android/build/
+android/.gradle/
+android/local.properties
+
+# iOS related
+ios/build/
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/Runner.xcodeproj/project.xcworkspace/
+ios/Runner.xcodeproj/xcuserdata/
+ios/.symlinks/
+
+# Other
+*.log
+.DS_Store
