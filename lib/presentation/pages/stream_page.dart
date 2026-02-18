@@ -1,6 +1,8 @@
 import 'package:dedikodu/data/models/backend_models/post_model.dart';
 import 'package:dedikodu/presentation/controllers/stream_controller.dart';
+import 'package:dedikodu/presentation/pages/post_detail_page.dart';
 import 'package:dedikodu/presentation/theme/app_colors.dart';
+import 'package:dedikodu/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,16 +20,13 @@ class StreamPage extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Beşiktaş, Akatlar',
-              style: TextStyle(
-                  color: AppColors.textDark,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
+              style: AppTextStyles.title.copyWith(color: AppColors.textDark),
             ),
-            const Text(
+            Text(
               'Yakınındaki 424 komşu aktif',
-              style: TextStyle(color: AppColors.textGrey, fontSize: 12),
+              style: AppTextStyles.caption.copyWith(color: AppColors.textGrey),
             ),
           ],
         ),
@@ -50,20 +49,15 @@ class StreamPage extends StatelessWidget {
           if (controller.isLoading && controller.posts.isEmpty) {
             return const Center(child: CircularProgressIndicator());
           }
-          return ListView(
-            children: [
-              _buildQuickPostCreator(),
-              _buildFilterTabs(),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: controller.posts.length,
-                itemBuilder: (context, index) {
-                  final post = controller.posts[index];
-                  return _buildPostCard(post);
-                },
-              )
-            ],
+          return ListView.builder(
+            padding: const EdgeInsets.only(bottom: 120),
+            itemCount: controller.posts.length + 2, // For header and filter tabs
+            itemBuilder: (context, index) {
+              if (index == 0) return _buildQuickPostCreator();
+              if (index == 1) return _buildFilterTabs();
+              final post = controller.posts[index - 2];
+              return _buildPostCard(context, post);
+            },
           );
         },
       ),
@@ -71,8 +65,8 @@ class StreamPage extends StatelessWidget {
   }
 
   Widget _buildQuickPostCreator() {
-    return Container(
-      padding: const EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
       child: Material(
         elevation: 1,
         borderRadius: BorderRadius.circular(16),
@@ -115,8 +109,7 @@ class StreamPage extends StatelessWidget {
                             backgroundColor: AppColors.primary,
                             shape: const StadiumBorder(),
                           ),
-                          child: const Text('Paylaş',
-                              style: TextStyle(color: AppColors.textDark)),
+                          child: Text('Paylaş', style: AppTextStyles.button.copyWith(color: AppColors.textDark)),
                         ),
                       ],
                     )
@@ -151,7 +144,7 @@ class StreamPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: ChoiceChip(
         shape: const StadiumBorder(),
-        label: Text(label),
+        label: Text(label, style: AppTextStyles.button),
         selected: isSelected,
         onSelected: (bool selected) {},
         backgroundColor: AppColors.cardLight,
@@ -164,83 +157,83 @@ class StreamPage extends StatelessWidget {
     );
   }
 
-  Widget _buildPostCard(Post post) {
-    return Card(
-      color: AppColors.cardLight,
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(backgroundImage: NetworkImage(post.userAvatar)),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(post.userName,
-                                  style:
-                                      const TextStyle(fontWeight: FontWeight.bold)),
-                              Text('${post.timeAgo} • ${post.category}',
-                                  style: const TextStyle(
-                                      color: Colors.grey, fontSize: 12)),
-                            ],
-                          ),
-                          const Icon(Icons.more_horiz),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Text(post.content),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          if (post.imageUrl != null)
+  Widget _buildPostCard(BuildContext context, Post post) {
+    return GestureDetector(
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PostDetailPage(postId: post.id))),
+      child: Card(
+        color: AppColors.cardLight,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        elevation: 1,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Column(
+          children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(post.imageUrl!,
-                    width: double.infinity,
-                    height: 200,
-                    fit: BoxFit.cover),
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(backgroundImage: NetworkImage(post.userAvatar)),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(post.userName,
+                                    style: AppTextStyles.title.copyWith(fontSize: 18)),
+                                Text('${post.timeAgo} • ${post.category}',
+                                    style: AppTextStyles.caption.copyWith(color: Colors.grey)),
+                              ],
+                            ),
+                            const Icon(Icons.more_horiz),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(post.content, style: AppTextStyles.body),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
-          if (post.isEvent) _buildEventBanner(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const Icon(Icons.favorite_border, color: Colors.grey),
-                    const SizedBox(width: 4),
-                    Text(post.likeCount.toString()),
-                    const SizedBox(width: 16),
-                    const Icon(Icons.chat_bubble_outline, color: Colors.grey),
-                    const SizedBox(width: 4),
-                    Text(post.commentCount.toString()),
-                  ],
+            if (post.imageUrl != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.network(post.imageUrl!,
+                      width: double.infinity,
+                      height: 200,
+                      fit: BoxFit.cover),
                 ),
-                const Icon(Icons.share, color: Colors.grey),
-              ],
-            ),
-          )
-        ],
+              ),
+            if (post.isEvent) _buildEventBanner(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.favorite_border, color: Colors.grey),
+                      const SizedBox(width: 4),
+                      Text(post.likeCount.toString(), style: AppTextStyles.body),
+                      const SizedBox(width: 16),
+                      const Icon(Icons.chat_bubble_outline, color: Colors.grey),
+                      const SizedBox(width: 4),
+                      Text(post.commentCount.toString(), style: AppTextStyles.body),
+                    ],                  ),
+                  const Icon(Icons.share, color: Colors.grey),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -255,22 +248,20 @@ class StreamPage extends StatelessWidget {
           border: Border.all(color: AppColors.primaryWithOpacity(0.2))),
       child: Column(
         children: [
-          const Text("Mahalle Maçı",
-              style: TextStyle(
-                  color: AppColors.primary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18)),
-          const Text("Cumartesi • 10:00 • Akatlar Spor Parkı",
-              style: TextStyle(color: AppColors.textGrey, fontSize: 12)),
-          const SizedBox(height: 8),
+          Text("Mahalle Maçı",
+              style: AppTextStyles.title.copyWith(color: AppColors.primary)),
+          const SizedBox(height: 4),
+          Text("Cumartesi • 10:00 • Akatlar Spor Parkı",
+              style: AppTextStyles.caption.copyWith(color: AppColors.textGrey)),
+          const SizedBox(height: 12),
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primary,
               shape: const StadiumBorder(),
             ),
-            child: const Text('Katılıyorum',
-                style: TextStyle(color: AppColors.textDark)),
+            child: Text('Katılıyorum',
+                style: AppTextStyles.button.copyWith(color: AppColors.textDark)),
           ),
         ],
       ),

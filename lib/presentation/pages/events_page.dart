@@ -1,6 +1,7 @@
 import 'package:dedikodu/data/models/backend_models/event_model.dart';
 import 'package:dedikodu/presentation/controllers/events_controller.dart';
 import 'package:dedikodu/presentation/theme/app_colors.dart';
+import 'package:dedikodu/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,19 +20,13 @@ class EventsPage extends StatelessWidget {
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'KADIKÖY, İSTANBUL',
-                style: TextStyle(
-                    color: AppColors.primary,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold),
+                style: AppTextStyles.caption.copyWith(color: AppColors.primary, fontWeight: FontWeight.bold),
               ),
-              const Text(
+              Text(
                 'Canlı Etkinlikler',
-                style: TextStyle(
-                    color: AppColors.textDark,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w800),
+                style: AppTextStyles.title.copyWith(color: AppColors.textDark),
               ),
             ],
           ),
@@ -116,7 +111,7 @@ class EventsPage extends StatelessWidget {
             child: ChoiceChip(
               shape: const StadiumBorder(),
               avatar: Icon(icon, color: isSelected ? AppColors.textDark : AppColors.textGrey),
-              label: Text(category),
+              label: Text(category, style: AppTextStyles.button),
               selected: isSelected,
               onSelected: (bool selected) {
                 if (selected) {
@@ -143,8 +138,8 @@ class EventsPage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('Yakındaki Etkinlikler',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text('Yakındaki Etkinlikler',
+              style: AppTextStyles.title),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
@@ -152,10 +147,7 @@ class EventsPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text('$eventCount Aktif',
-                style: const TextStyle(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12)),
+                style: AppTextStyles.caption.copyWith(color: AppColors.primary, fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -205,7 +197,7 @@ class EventsPage extends StatelessWidget {
                 const Icon(Icons.timer, color: AppColors.primary, size: 16),
                 const SizedBox(width: 4),
                 Text(event.time,
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                    style: AppTextStyles.bodyBold),
               ],
             ),
           ),
@@ -224,9 +216,7 @@ class EventsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(event.title,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold)),
+                  style: AppTextStyles.title),
               _buildParticipantAvatars(event.participantAvatars),
             ],
           ),
@@ -236,7 +226,7 @@ class EventsPage extends StatelessWidget {
               const Icon(Icons.storefront, color: AppColors.textGrey, size: 16),
               const SizedBox(width: 4),
               Text(event.locationName,
-                  style: const TextStyle(color: AppColors.textGrey, fontSize: 14)),
+                  style: AppTextStyles.body.copyWith(color: AppColors.textGrey)),
             ],
           ),
           const SizedBox(height: 16),
@@ -248,8 +238,7 @@ class EventsPage extends StatelessWidget {
                 children: [
                   const Text('Doluluk', style: TextStyle(color: AppColors.textGrey, fontSize: 12)),
                   Text('${event.currentParticipants}/${event.maxParticipants} Katılımcı',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 14)),
+                      style: AppTextStyles.bodyBold),
                 ],
               ),
               ElevatedButton(
@@ -259,8 +248,8 @@ class EventsPage extends StatelessWidget {
                   shape: const StadiumBorder(),
                   padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12)
                 ),
-                child: const Text('Katıl',
-                    style: TextStyle(color: AppColors.textDark, fontWeight: FontWeight.bold)),
+                child: Text('Katıl',
+                    style: AppTextStyles.button.copyWith(color: AppColors.textDark)),
               ),
             ],
           )

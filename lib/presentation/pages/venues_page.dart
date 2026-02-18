@@ -1,6 +1,7 @@
 import 'package:dedikodu/data/models/backend_models/venue_model.dart';
 import 'package:dedikodu/presentation/controllers/venues_controller.dart';
 import 'package:dedikodu/presentation/theme/app_colors.dart';
+import 'package:dedikodu/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,19 +26,16 @@ class _VenuesPageState extends State<VenuesPage> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Mahalle Esnafı',
-              style: TextStyle(
-                  color: AppColors.textDark,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+              style: AppTextStyles.title.copyWith(color: AppColors.textDark),
             ),
             Row(
               children: [
                 Icon(Icons.location_on, color: AppColors.textGrey, size: 14),
                 const SizedBox(width: 4),
-                const Text('Kadıköy, İstanbul',
-                    style: TextStyle(color: AppColors.textGrey, fontSize: 12)),
+                Text('Kadıköy, İstanbul',
+                    style: AppTextStyles.caption.copyWith(color: AppColors.textGrey)),
               ],
             ),
           ],
@@ -48,8 +46,8 @@ class _VenuesPageState extends State<VenuesPage> {
             child: ElevatedButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.add_circle, color: AppColors.textDark),
-              label: const Text('Dükkanımı Ekle',
-                  style: TextStyle(color: AppColors.textDark)),
+              label: Text('Dükkanımı Ekle',
+                  style: AppTextStyles.button.copyWith(color: AppColors.textDark)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
                 shape: const StadiumBorder(),
@@ -133,8 +131,8 @@ class _VenuesPageState extends State<VenuesPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('Yakınındaki Esnaflar',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text('Yakınındaki Esnaflar',
+              style: AppTextStyles.title),
           Container(
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
@@ -231,8 +229,7 @@ class _VenuesPageState extends State<VenuesPage> {
                 const Icon(Icons.star, color: AppColors.primary, size: 14),
                 const SizedBox(width: 2),
                 Text(venue.rating.toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 12)),
+                    style: AppTextStyles.bodyBold),
               ],
             ),
           ),
@@ -253,7 +250,7 @@ class _VenuesPageState extends State<VenuesPage> {
               Flexible(
                 child: Text(
                   venue.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: AppTextStyles.bodyBold,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -264,7 +261,7 @@ class _VenuesPageState extends State<VenuesPage> {
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(venue.category.toUpperCase(),
-                      style: const TextStyle(
+                      style: AppTextStyles.caption.copyWith(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,
                           color: AppColors.textDark))),
@@ -273,7 +270,7 @@ class _VenuesPageState extends State<VenuesPage> {
           const SizedBox(height: 4),
           Text(
             venue.description,
-            style: const TextStyle(color: AppColors.textGrey, fontSize: 12),
+            style: AppTextStyles.caption.copyWith(color: AppColors.textGrey),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -299,7 +296,7 @@ class _VenuesPageState extends State<VenuesPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(venue.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(venue.name, style: AppTextStyles.title),
           const SizedBox(height: 4),
            Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -308,14 +305,14 @@ class _VenuesPageState extends State<VenuesPage> {
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(venue.category.toUpperCase(),
-                      style: const TextStyle(
+                      style: AppTextStyles.caption.copyWith(
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
                           color: AppColors.textDark))),
           const SizedBox(height: 8),
           Text(
             venue.description,
-            style: const TextStyle(color: AppColors.textGrey, fontSize: 12),
+            style: AppTextStyles.body.copyWith(color: AppColors.textGrey),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -324,8 +321,8 @@ class _VenuesPageState extends State<VenuesPage> {
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: () {},
-              child: const Text('Detaylar',
-                  style: TextStyle(color: AppColors.primary)),
+              child: Text('Detaylar',
+                  style: AppTextStyles.button.copyWith(color: AppColors.primary)),
             ),
           )
         ],

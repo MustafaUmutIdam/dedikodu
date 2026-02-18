@@ -1,4 +1,5 @@
-import '../../models/backend_models/post_model.dart';
+import 'package:dedikodu/data/models/backend_models/comment_model.dart';
+import 'package:dedikodu/data/models/backend_models/post_model.dart';
 
 class PostService {
   Future<List<Post>> getPosts() async {
@@ -47,6 +48,22 @@ class PostService {
         commentCount: 3,
         isEvent: true,
       ),
+    ];
+  }
+
+  Future<Post> getPostDetails(String postId) async {
+    // Simulate a network request
+    await Future.delayed(const Duration(milliseconds: 500));
+    final posts = await getPosts();
+    return posts.firstWhere((post) => post.id == postId);
+  }
+
+  Future<List<Comment>> getComments(String postId) async {
+    // Simulate a network request
+    await Future.delayed(const Duration(milliseconds: 500));
+    return [
+      Comment(id: '1', userName: 'Selin Kaya', userAvatar: 'https://randomuser.me/api/portraits/women/68.jpg', text: 'Harika bir fikir! Ben de katılmak isterim.', timeAgo: '1 saat önce'),
+      Comment(id: '2', userName: 'Mehmet Öztürk', userAvatar: 'https://randomuser.me/api/portraits/men/32.jpg', text: 'Saat kaçta buluşulacak?', timeAgo: '45 dakika önce'),
     ];
   }
 }
